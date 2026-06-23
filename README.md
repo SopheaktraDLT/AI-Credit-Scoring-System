@@ -261,16 +261,6 @@ Provide recommendations to improve borrower creditworthiness and reduce default 
 
 ---
 
-# Future Improvements
-
-* Explainable AI (XAI) for prediction interpretation.
-* Feature range risk analysis.
-* Additional external data integration.
-* Real-time API deployment.
-* Model monitoring and retraining pipeline.
-
----
-
 # Author
 
 **Yoeung Sopheaktra**
