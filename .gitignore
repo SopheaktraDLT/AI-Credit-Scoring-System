@@ -1,0 +1,36 @@
+# Virtual environments anywhere in the project
+**/.venv/
+**/venv/
+**/env/
+
+# Environment files
+.env
+*.env
+.env.*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+.idea/
+
+# ML folder
+ML/
+
+# Model files
+*.pkl
+*.joblib
+*.pickle
+*.h5
+
+# Model directories
+credit_scoring/model/
+
+# Logs
+logs/
+*.log
