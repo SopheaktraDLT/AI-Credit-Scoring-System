@@ -1,3 +1,4 @@
+# main.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
@@ -102,7 +103,7 @@ def run_selenium(nid_list: List[str]):
 
     driver = webdriver.Chrome(options=options)
     driver.set_window_size(1200, 800)
-    wait = WebDriverWait(driver, 3)
+    wait = WebDriverWait(driver, 10)
 
     results_data = []
 
