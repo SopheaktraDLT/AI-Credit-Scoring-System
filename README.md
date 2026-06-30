@@ -1,33 +1,51 @@
 # AI Credit Scoring System
 
-## Overview
+An AI-powered Credit Scoring and Loan Decision Support System designed to evaluate borrower creditworthiness and predict the probability of default using Machine Learning.
 
-AI Credit Scoring System is an intelligent loan decision support system that evaluates borrower creditworthiness and predicts the probability of default using Machine Learning techniques.
+The project combines a complete credit scoring application with machine learning model development, enabling financial institutions and microfinance organizations to make faster, more consistent, and data-driven lending decisions.
 
-The system integrates:
+---
 
-* National ID (NID) Verification
-* Credit Risk Assessment
-* Default Prediction Models
-* Credit Scoring
-* Recommendation System
-* Assessment History Dashboard
+## Project Components
 
-The project aims to assist financial institutions and microfinance organizations in making faster, more accurate, and data-driven lending decisions, especially for borrowers with limited or no credit history.
+This repository consists of two main modules:
+
+### Credit Scoring System
+A production-oriented application built with Streamlit and FastAPI that performs:
+
+- National ID (NID) Verification
+- Credit Assessment
+- Probability of Default (PD) Prediction
+- Credit Score Generation
+- Loan Decision Support
+- Personalized Recommendations
+- Assessment History Dashboard
+
+### Model Development
+A research and experimentation environment containing the complete machine learning pipeline, including:
+
+- Data Preprocessing
+- Feature Engineering
+- Supervised Learning
+- Unsupervised Learning
+- Reinforcement Learning (Research)
+- Hyperparameter Tuning
+- Model Evaluation
+- Model Comparison
 
 ---
 
 # Features
 
-*  National ID (NID) verification using Cambodia voter database.
-*  Credit assessment for both new and existing borrowers.
-*  Machine Learning-based default prediction.
-*  Probability of Default (PD) estimation.
-*  Credit score generation.
-*  Loan decision support (Approve, Review, Reject).
-*  Personalized recommendations to improve creditworthiness.
-*  Assessment history management.
-*  Interactive dashboard using Streamlit.
+- National ID (NID) verification using Cambodia voter database
+- Credit assessment for new and existing borrowers
+- Machine learning-based default prediction
+- Probability of Default (PD) estimation
+- Credit score generation
+- Loan decision support (Approve / Review / Reject)
+- Personalized recommendations
+- Assessment history management
+- Interactive Streamlit dashboard
 
 ---
 
@@ -56,139 +74,152 @@ Decision & Recommendation
 
 ---
 
-# Technology Stack
-
-### Programming Language
-
-* Python 3
-
-### Machine Learning
-
-* Scikit-learn
-* Random Forest
-* Logistic Regression
-* Support Vector Machine (SVM)
-* Multi-Layer Perceptron (MLP)
-
-### Web Framework
-
-* Streamlit
-* FastAPI
-
-### Database
-
-* MySQL
-
-### Libraries
-
-* Pandas
-* NumPy
-* SQLAlchemy
-* Selenium
-* Joblib
-
----
-
-# Project Structure
+# Repository Structure
 
 ```text
 AI-Credit-Scoring-System/
 │
-├── check_nid/              # FastAPI service for National ID verification and voter data retrieval.
+├── check_nid/                    # FastAPI service for National ID verification
 │
-├── credit_scoring/         # Main Streamlit application for credit assessment and default prediction.
+├── credit_scoring/               # Main credit scoring application
 │
-├── ML/                     # Machine learning development notebooks and model training experiments.
+├── model_development/            # Machine learning development
+│   │
+│   ├── supervised_learning/
+│   │
+│   ├── unsupervised_learning/
+│   │
+│   └── reinforcement_learning/
 │
-├── README.md               # Project documentation and setup instructions.
-│
-├── requirements.txt        # Python dependencies required to run the project.
-│
-└── .gitignore              # Files and folders excluded from Git tracking.
+├── README.md
+├── requirements.txt
+└── .gitignore
 ```
 
 ---
 
-# Credit Scoring Module Structure
+# Credit Scoring System
+
+The **credit_scoring** module contains the deployable application.
+
+### Main Components
 
 ```text
 credit_scoring/
 │
-├── app.py                  # Entry point of the Streamlit application.
+├── app.py
 │
 ├── src/
-│   ├── config/             # Application configurations and constants.
-│   ├── database/           # Database connection and SQL scripts.
-│   ├── prediction/         # Machine learning prediction logic.
-│   ├── scoring/            # Credit scoring and risk calculation.
-│   ├── ui/                 # Streamlit pages and user interface components.
-│   └── utils/              # Utility and helper functions.
+│   ├── config/
+│   ├── database/
+│   ├── prediction/
+│   ├── scoring/
+│   ├── ui/
+│   └── utils/
 │
-├── model/                  # Models of Machine learning that already train
-│
-├── preprocessor/           # Saved preprocessing pipelines and encoders.
-│
-└── data/                   # Input datasets and generated data files.
+├── model/
+├── preprocessor/
+└── data/
 ```
 
 ---
 
-# National ID Verification Module
+# Model Development
+
+The **model_development** module contains all machine learning research and experimentation.
 
 ```text
-check_nid/
+model_development/
 │
-└── main.py                 # FastAPI application and Selenium scraper.
+├── supervised_learning/
+│   ├── Data preprocessing
+│   ├── Feature engineering
+│   ├── Model training
+│   ├── Hyperparameter tuning
+│   ├── Model evaluation
+│   └── Model comparison
+│
+├── unsupervised_learning/
+│   ├── Data preprocessing
+│   ├── K-Means clustering
+│   ├── Cluster analysis
+│   └── Results
+│
+└── reinforcement_learning/
+    ├── Reinforcement learning experiments
+    └── Q-Learning research
 ```
-
-### Responsibilities
-
-* Verify Cambodian National ID (NID).
-* Retrieve voter information from the Cambodia voter database.
-* Cache voter information in MySQL.
-* Provide API endpoints for the credit scoring application.
 
 ---
 
 # Machine Learning Models
 
-## New User Model
+## New Borrower Model
 
-Predicts default risk for borrowers without repayment history using:
+Predicts default risk for applicants without repayment history using:
 
-* Repayment Capacity
-* Debt Exposure
-* Stability & Life Structure
-* Credit Seeking Behavior
-* Financial Resilience
-* Identity & Fraud Risk
+- Repayment Capacity
+- Debt Exposure
+- Stability & Life Structure
+- Credit Seeking Behavior
+- Financial Profile & Resilience
+- Identity & Fraud Risk
 
-## Existing User Model
+## Existing Borrower Model
 
 Predicts default risk for borrowers with historical repayment records using:
 
-* Repayment Behavior
-* Current Debt & Exposure
-* Financial Trend
-* Credit Activity & Engagement
-* Stability & Tenure
+- Repayment Behavior
+- Current Debt & Exposure
+- Financial Trend
+- Credit Activity & Engagement
+- Stability & Tenure
+
+---
+
+# Technology Stack
+
+## Programming Language
+
+- Python
+
+## Machine Learning
+
+- Scikit-learn
+- Random Forest
+- Logistic Regression
+- Support Vector Machine (SVM)
+- Multi-Layer Perceptron (MLP)
+
+## Web Framework
+
+- Streamlit
+- FastAPI
+
+## Database
+
+- MySQL
+
+## Libraries
+
+- Pandas
+- NumPy
+- SQLAlchemy
+- Selenium
+- Joblib
 
 ---
 
 # Installation
 
-## Clone Repository
+Clone the repository.
 
 ```bash
 git clone https://github.com/SopheaktraDLT/AI-Credit-Scoring-System.git
 cd AI-Credit-Scoring-System
 ```
 
----
-
-# Install Dependencies
-
-## Credit Scoring System
+Install the required dependencies.
 
 ```bash
 cd credit_scoring
@@ -199,69 +230,41 @@ pip install -r requirements.txt
 
 # Running the Project
 
-## Step 1: Start NID Verification API
+### Start the National ID Verification API
 
 ```bash
 cd check_nid
 uvicorn main:app --reload
 ```
 
-API URL:
+API:
 
-```text
+```
 http://127.0.0.1:8000
 ```
 
 ---
 
-## Step 2: Start Credit Scoring System
+### Start the Credit Scoring System
 
 ```bash
 cd credit_scoring
 streamlit run app.py
 ```
 
-Application URL:
+Application:
 
-```text
+```
 http://localhost:8501
 ```
 
 ---
 
-# Main Functionalities
+# Future Development
 
-### Identity Verification
-
-Verify borrower information using Cambodia National ID.
-
-### Credit Assessment
-
-Collect borrower information and calculate financial features.
-
-### Default Prediction
-
-Predict the probability of borrower default using machine learning models.
-
-### Credit Scoring
-
-Generate borrower credit scores and determine risk levels.
-
-### Decision Support
-
-Classify applications into:
-
-* Approve
-* Manual Review
-* Reject
-
-### Recommendation System
-
-Provide recommendations to improve borrower creditworthiness and reduce default risk.
-
----
-
-# Author
-
-**Yoeung Sopheaktra**
-
+- Advanced ensemble models
+- Explainable AI (XAI)
+- Reinforcement Learning for credit policy optimization
+- Alternative data integration
+- Dynamic scorecard optimization
+- Real-time risk monitoring
