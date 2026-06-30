@@ -126,7 +126,7 @@ with st.sidebar:
         "Decision Threshold",
         0.0,
         1.0,
-        0.5,
+        0.4,
         help="Adjust the default probability threshold",
     )
 

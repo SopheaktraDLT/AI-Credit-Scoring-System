@@ -1,0 +1,6 @@
+{
+    "init": "k-means++",
+    "max_iter": 300,
+    "n_clusters": 2,
+    "n_init": 20
+}

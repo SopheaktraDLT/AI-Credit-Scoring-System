@@ -19,9 +19,6 @@ __pycache__/
 .vscode/
 .idea/
 
-# ML folder
-ML/
-
 # Model files
 *.pkl
 *.joblib

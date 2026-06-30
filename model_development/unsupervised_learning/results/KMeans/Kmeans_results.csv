@@ -1,0 +1,3 @@
+Dataset,Model,Silhouette,Davies_Bouldin,Calinski_Harabasz,Best_Silhouette,Tuning_Time_Seconds,Training_Time_Seconds
+NEW,KMeans,0.1463,2.2746,1034.4,0.1465,54.29,0.3
+OLD,KMeans,0.1298,2.5533,777.42,0.1218,43.45,0.5782

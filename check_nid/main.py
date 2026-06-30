@@ -12,6 +12,9 @@ import mysql.connector
 
 app = FastAPI(title="Voter NID API")
 
+driver = None
+wait = None
+
 
 def get_connection():
     return mysql.connector.connect(
@@ -91,93 +94,110 @@ class NIDRequest(BaseModel):
     nid: str
 
 
-def run_selenium(nid_list: List[str]):
+@app.on_event("startup")
+def startup():
+
+    global driver, wait
+
     options = Options()
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
-    options.add_experimental_option(
-        "prefs", {"profile.default_content_setting_values.javascript": 1}
-    )
 
     driver = webdriver.Chrome(options=options)
+
     driver.set_window_size(1200, 800)
-    wait = WebDriverWait(driver, 10)
+    driver.set_page_load_timeout(30)
 
-    results_data = []
+    wait = WebDriverWait(driver, 20)
 
-    try:
-        driver.get("https://voterlist.nec.gov.kh")
+    driver.get("https://voterlist.nec.gov.kh")
 
-        for nid in nid_list:
-            try:
-                # Reset tab each time to prevent stale elements
-                wait.until(EC.element_to_be_clickable((By.ID, "by_id")))
-                nid_tab = driver.find_element(By.ID, "by_id")
-                driver.execute_script("arguments[0].click();", nid_tab)
+    print("Chrome started")
 
-                # Find input field
-                wait.until(EC.presence_of_element_located((By.ID, "id_no")))
-                nid_input = driver.find_element(By.ID, "id_no")
-                nid_input.clear()
-                nid_input.send_keys(str(nid))
 
-                # Submit form directly instead of button click chain
-                driver.execute_script("""
-                    document.getElementById("Activetab").value = "3";
-                    document.getElementById("myForm").submit();
-                """)
+@app.on_event("shutdown")
+def shutdown():
 
-                # Re-fetch rows after page update
-                rows = driver.find_elements(By.XPATH, "//table/tbody/tr[position()>1]")
-                found_any = False
+    global driver
 
-                for row in rows:
-                    cols = row.find_elements(By.TAG_NAME, "td")
-                    data = [c.text.strip() for c in cols]
-
-                    if len(data) > 5:
-                        found_any = True
-                        results_data.append(
-                            {
-                                "range_list": data[0],
-                                "id": data[1],
-                                "file_type": data[2],
-                                "nid": str(nid),
-                                "name": data[4],
-                                "gender": data[5],
-                                "dob": data[6],
-                                "province_id": data[7].split(") ")[0].replace("(", ""),
-                                "province_name": (
-                                    data[7].split(") ")[1] if ") " in data[7] else ""
-                                ),
-                                "commune_id": data[8].split(") ")[0].replace("(", ""),
-                                "commune_name": (
-                                    data[8].split(") ")[1] if ") " in data[8] else ""
-                                ),
-                                "election_office_id": data[9]
-                                .split(") ")[0]
-                                .replace("(", ""),
-                                "election_office_name": (
-                                    data[9].split(") ")[1] if ") " in data[9] else ""
-                                ),
-                                "registration_year": data[10],
-                            }
-                        )
-
-                if not found_any:
-                    results_data.append(
-                        {"nid": str(nid), "error": "Not found on website"}
-                    )
-
-            except Exception as e:
-                results_data.append({"nid": str(nid), "error": str(e)})
-
-    finally:
+    if driver:
         driver.quit()
 
-    return results_data
+    print("Chrome closed")
+
+
+def run_selenium(nid):
+
+    global driver, wait
+
+    try:
+
+        driver.get("https://voterlist.nec.gov.kh")
+
+        wait.until(EC.element_to_be_clickable((By.ID, "by_id")))
+
+        nid_tab = driver.find_element(By.ID, "by_id")
+
+        driver.execute_script("arguments[0].click();", nid_tab)
+
+        wait.until(EC.presence_of_element_located((By.ID, "id_no")))
+
+        nid_input = driver.find_element(By.ID, "id_no")
+
+        nid_input.clear()
+        nid_input.send_keys(str(nid))
+
+        time.sleep(0.5)
+
+        driver.execute_script("""
+            document.getElementById("Activetab").value = "3";
+            document.getElementById("myForm").submit();
+        """)
+
+        wait.until(EC.presence_of_element_located((By.XPATH, "//table/tbody")))
+
+        rows = driver.find_elements(By.XPATH, "//table/tbody/tr[position()>1]")
+
+        for row in rows:
+
+            cols = row.find_elements(By.TAG_NAME, "td")
+
+            data = [c.text.strip() for c in cols]
+
+            if len(data) > 10:
+
+                return [
+                    {
+                        "range_list": data[0],
+                        "id": data[1],
+                        "file_type": data[2],
+                        "nid": str(nid),
+                        "name": data[4],
+                        "gender": data[5],
+                        "dob": data[6],
+                        "province_id": data[7].split(") ")[0].replace("(", ""),
+                        "province_name": (
+                            data[7].split(") ")[1] if ") " in data[7] else ""
+                        ),
+                        "commune_id": data[8].split(") ")[0].replace("(", ""),
+                        "commune_name": (
+                            data[8].split(") ")[1] if ") " in data[8] else ""
+                        ),
+                        "election_office_id": data[9].split(") ")[0].replace("(", ""),
+                        "election_office_name": (
+                            data[9].split(") ")[1] if ") " in data[9] else ""
+                        ),
+                        "registration_year": data[10],
+                    }
+                ]
+
+        return [{"nid": str(nid), "error": "Not found on website"}]
+
+    except Exception as e:
+
+        return [{"nid": str(nid), "error": str(e)}]
 
 
 @app.get("/")
@@ -208,7 +228,7 @@ def search(request: NIDRequest):
             },
         }
 
-    selenium_results = run_selenium([nid])
+    selenium_results = run_selenium(nid)
 
     if selenium_results:
 
