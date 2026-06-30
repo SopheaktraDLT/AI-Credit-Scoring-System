@@ -1,51 +1,41 @@
 # AI Credit Scoring System
 
-An AI-powered Credit Scoring and Loan Decision Support System designed to evaluate borrower creditworthiness and predict the probability of default using Machine Learning.
+An AI-powered Credit Scoring and Loan Decision Support System that evaluates borrower creditworthiness and predicts the Probability of Default (PD) using Machine Learning.
 
-The project combines a complete credit scoring application with machine learning model development, enabling financial institutions and microfinance organizations to make faster, more consistent, and data-driven lending decisions.
+This project combines a complete credit scoring application with machine learning model development, providing an end-to-end solution for intelligent lending decision support.
 
 ---
 
-## Project Components
+## Project Overview
 
-This repository consists of two main modules:
+The repository consists of three major components:
 
-### Credit Scoring System
-A production-oriented application built with Streamlit and FastAPI that performs:
+### 📌 Credit Scoring System
+A production-oriented application built with **Streamlit** and **FastAPI** for borrower assessment and loan decision support.
 
-- National ID (NID) Verification
-- Credit Assessment
-- Probability of Default (PD) Prediction
-- Credit Score Generation
-- Loan Decision Support
-- Personalized Recommendations
-- Assessment History Dashboard
+### 🤖 Model Development
+A research environment for developing, training, evaluating, and comparing Machine Learning models, including:
 
-### Model Development
-A research and experimentation environment containing the complete machine learning pipeline, including:
-
-- Data Preprocessing
-- Feature Engineering
 - Supervised Learning
 - Unsupervised Learning
 - Reinforcement Learning (Research)
-- Hyperparameter Tuning
-- Model Evaluation
-- Model Comparison
+
+### 🪪 National ID Verification
+A FastAPI service integrated with the Cambodia voter database for borrower identity verification.
 
 ---
 
 # Features
 
-- National ID (NID) verification using Cambodia voter database
-- Credit assessment for new and existing borrowers
-- Machine learning-based default prediction
-- Probability of Default (PD) estimation
-- Credit score generation
-- Loan decision support (Approve / Review / Reject)
-- Personalized recommendations
-- Assessment history management
-- Interactive Streamlit dashboard
+- National ID (NID) Verification
+- Credit Assessment for New and Existing Borrowers
+- Machine Learning-based Default Prediction
+- Probability of Default (PD) Estimation
+- Credit Score Generation
+- Loan Decision Support
+- Personalized Credit Improvement Recommendations
+- Assessment History Dashboard
+- Interactive Streamlit Web Application
 
 ---
 
@@ -53,23 +43,31 @@ A research and experimentation environment containing the complete machine learn
 
 ```text
 Loan Application
-        ↓
+        │
+        ▼
 National ID Verification
-        ↓
+        │
+        ▼
 Data Validation
-        ↓
+        │
+        ▼
 Redline Rules
-        ↓
+        │
+        ▼
 Borrower Segmentation
-(New User / Existing User)
-        ↓
+(New / Existing Borrower)
+        │
+        ▼
 Machine Learning Prediction
-        ↓
-Probability of Default
-        ↓
-Credit Score
-        ↓
-Decision & Recommendation
+        │
+        ▼
+Probability of Default (PD)
+        │
+        ▼
+Credit Score Generation
+        │
+        ▼
+Loan Decision & Recommendation
 ```
 
 ---
@@ -79,16 +77,15 @@ Decision & Recommendation
 ```text
 AI-Credit-Scoring-System/
 │
-├── check_nid/                    # FastAPI service for National ID verification
+├── check_nid/
+│   FastAPI service for National ID verification
 │
-├── credit_scoring/               # Main credit scoring application
+├── credit_scoring/
+│   Main Streamlit application
 │
-├── model_development/            # Machine learning development
-│   │
+├── model_development/
 │   ├── supervised_learning/
-│   │
 │   ├── unsupervised_learning/
-│   │
 │   └── reinforcement_learning/
 │
 ├── README.md
@@ -98,9 +95,11 @@ AI-Credit-Scoring-System/
 
 ---
 
-# Credit Scoring System
+# Module Description
 
-The **credit_scoring** module contains the deployable application.
+## 1. Credit Scoring System
+
+The main application responsible for borrower assessment and loan decision support.
 
 ### Main Components
 
@@ -122,33 +121,88 @@ credit_scoring/
 └── data/
 ```
 
+### Responsibilities
+
+- User Authentication
+- Borrower Information Collection
+- National ID Integration
+- Feature Engineering
+- Credit Score Calculation
+- Default Prediction
+- Decision Recommendation
+- Assessment History
+
 ---
 
-# Model Development
+## 2. Model Development
 
-The **model_development** module contains all machine learning research and experimentation.
+Contains all experiments, notebooks, trained models, and evaluation results.
 
-```text
-model_development/
-│
-├── supervised_learning/
-│   ├── Data preprocessing
-│   ├── Feature engineering
-│   ├── Model training
-│   ├── Hyperparameter tuning
-│   ├── Model evaluation
-│   └── Model comparison
-│
-├── unsupervised_learning/
-│   ├── Data preprocessing
-│   ├── K-Means clustering
-│   ├── Cluster analysis
-│   └── Results
-│
-└── reinforcement_learning/
-    ├── Reinforcement learning experiments
-    └── Q-Learning research
-```
+### Supervised Learning
+
+Develops predictive models for borrower default prediction.
+
+Contents include:
+
+- Data preprocessing
+- Feature engineering
+- Model training
+- Hyperparameter tuning
+- Model evaluation
+- Model comparison
+- Trained models
+
+Algorithms include:
+
+- Logistic Regression
+- Random Forest
+- Support Vector Machine (SVM)
+- Multi-Layer Perceptron (MLP)
+
+---
+
+### Unsupervised Learning
+
+Explores borrower segmentation using clustering techniques.
+
+Includes:
+
+- Data preprocessing
+- Feature transformation
+- K-Means clustering
+- Cluster analysis
+- Cluster visualization
+- Evaluation metrics
+
+---
+
+### Reinforcement Learning
+
+Research module for intelligent credit policy optimization.
+
+Current work includes:
+
+- Reinforcement Learning fundamentals
+- Q-Learning implementation
+- Credit decision environment
+- Reward function design
+- Policy optimization
+
+> **Note:** This module is currently under research and is not yet integrated into the production system.
+
+---
+
+## 3. National ID Verification
+
+FastAPI service for verifying Cambodian National IDs using voter registration data.
+
+Responsibilities:
+
+- National ID verification
+- Voter information retrieval
+- Data validation
+- MySQL caching
+- REST API services
 
 ---
 
@@ -164,6 +218,8 @@ Predicts default risk for applicants without repayment history using:
 - Credit Seeking Behavior
 - Financial Profile & Resilience
 - Identity & Fraud Risk
+
+---
 
 ## Existing Borrower Model
 
@@ -191,6 +247,11 @@ Predicts default risk for borrowers with historical repayment records using:
 - Support Vector Machine (SVM)
 - Multi-Layer Perceptron (MLP)
 
+## Research
+
+- Reinforcement Learning
+- Q-Learning
+
 ## Web Framework
 
 - Streamlit
@@ -216,13 +277,13 @@ Clone the repository.
 
 ```bash
 git clone https://github.com/SopheaktraDLT/AI-Credit-Scoring-System.git
+
 cd AI-Credit-Scoring-System
 ```
 
-Install the required dependencies.
+Install dependencies.
 
 ```bash
-cd credit_scoring
 pip install -r requirements.txt
 ```
 
@@ -230,14 +291,15 @@ pip install -r requirements.txt
 
 # Running the Project
 
-### Start the National ID Verification API
+## 1. Start National ID Verification API
 
 ```bash
 cd check_nid
+
 uvicorn main:app --reload
 ```
 
-API:
+API
 
 ```
 http://127.0.0.1:8000
@@ -245,14 +307,15 @@ http://127.0.0.1:8000
 
 ---
 
-### Start the Credit Scoring System
+## 2. Start Credit Scoring System
 
 ```bash
 cd credit_scoring
+
 streamlit run app.py
 ```
 
-Application:
+Application
 
 ```
 http://localhost:8501
@@ -262,9 +325,10 @@ http://localhost:8501
 
 # Future Development
 
-- Advanced ensemble models
 - Explainable AI (XAI)
-- Reinforcement Learning for credit policy optimization
-- Alternative data integration
-- Dynamic scorecard optimization
-- Real-time risk monitoring
+- Advanced Ensemble Models
+- Graph-based Credit Scoring
+- Reinforcement Learning Integration
+- Dynamic Credit Limit Recommendation
+- Real-time Risk Monitoring
+- MLOps Deployment Pipeline
